@@ -1,0 +1,28 @@
+{
+  "name": "jrg",
+  "version": "0.0.1",
+  "description": "Generate Me!",
+  "bin": {
+    "jrg": "bin/jrg"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "react",
+    "redux",
+    "sequelize"
+  ],
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "chalk": "^1.1.3",
+    "ncp": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdhang/jrg.git"
+  },
+  "author": {
+    "name": "Jason Hang",
+    "email": "dev.jdhang@gmail.com"
+  }
+}

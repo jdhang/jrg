@@ -1,0 +1,8 @@
+generated/node_modules
+generated/bower_components
+generated/public
+node_modules
+bower_components
+*.log
+.DS_Store
+coverage/
