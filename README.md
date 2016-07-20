@@ -2,4 +2,4 @@
 
 ---
 
-<h4 align="center">Heavily influenced by [fsg](https://github.com/FullstackAcademy/fsg) made by Fullstack Academy</h4>
+<h4 align="center">Heavily influenced by <a href="https://github.com/FullstackAcademy/fsg">fsg</a> made by Fullstack Academy
