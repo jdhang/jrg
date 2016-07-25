@@ -2,19 +2,23 @@
 
 const path = require('path')
 const webpack = require('webpack')
+const autoprefixer = require('autoprefixer')
+const precss = require('precss')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+const indexPath = path.join(__dirname, 'client', 'src', 'index.html')
 
 module.exports = {
   devtool: 'eval',
   entry: [
     'babel-polyfill',
     'webpack-hot-middleware/client',
-    './client/index.js'
+    './client/src/app.js'
   ],
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'client', 'public'),
     filename: 'bundle.js',
-    publicPath: '/public/'
+    publicPath: '/'
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.css', '.scss'],
@@ -29,14 +33,18 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        // loader: 'style!css!sass',
-        loader: ExtractTextPlugin.extract('style', 'css!sass')
+        loader: ExtractTextPlugin.extract('style', 'css?-autoprefixer!postcss!sass?sourceMap'),
+        include: /(client)|(node_modules)/
       }
     ]
   },
+  postcss: function () {
+    return [autoprefixer, precss]
+  },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"'}),
+    new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('style.css', { allChunks: true })
   ]
 }

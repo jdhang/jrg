@@ -3,8 +3,7 @@
 import React from 'react'
 import Logo from '../../shared/Logo'
 import getRandomGreeting from '../../resources/RandomGreetings'
-
-require('./home')
+import './home'
 
 const Home = (props) => {
   return (

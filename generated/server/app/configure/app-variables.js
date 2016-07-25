@@ -5,7 +5,7 @@ import chalk from 'chalk'
 import util from 'util'
 
 const rootPath = path.join(__dirname, '../../../')
-const indexPath = path.join(rootPath, './public/index.html')
+const indexPath = path.join(rootPath, './client/public/index.html')
 const faviconPath = path.join(rootPath, './server/app/views/favicon.ico')
 
 const env = require(path.join(rootPath, './server/env'))

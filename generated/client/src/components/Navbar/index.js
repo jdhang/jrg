@@ -4,9 +4,9 @@ import React, { PropTypes } from 'react'
 import { IndexLink, Link } from 'react-router'
 import { Navbar, Nav, NavItem, Button } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
+import { logout } from '../../actions/auth'
 import Logo from '../../shared/Logo'
-
-require('./navbar')
+import './navbar'
 
 const NAV_ITEMS = [
   { label: 'Home', path: '/' },
@@ -15,7 +15,7 @@ const NAV_ITEMS = [
   { label: 'Members Only', path: 'membersOnly', auth: true }
 ]
 
-const renderNavItems = () => {
+const renderNavItems = (user) => {
   return (
     <Nav>
     {
@@ -23,15 +23,15 @@ const renderNavItems = () => {
         if (item.label === 'Home') {
           return (
             <IndexLinkContainer to={item.path} key={i}>
-              <NavItem>
+              <NavItem eventKey={i}>
                 {item.label}
               </NavItem>
             </IndexLinkContainer>
           )
-        } else if (!item.auth) {
+        } else if (user || !item.auth) {
           return (
             <LinkContainer to={item.path} key={i}>
-              <NavItem>
+              <NavItem eventKey={i}>
                 {item.label}
               </NavItem>
             </LinkContainer>
@@ -43,20 +43,35 @@ const renderNavItems = () => {
   )
 }
 
-const renderAuthNavItems = () => {
-  return (
-    <Nav pullRight>
-      <LinkContainer to='signup'>
-        <NavItem>Sign Up</NavItem>
-      </LinkContainer>
-      <LinkContainer to='login'>
-        <NavItem>Login</NavItem>
-      </LinkContainer>
-    </Nav>
-  )
+const renderAuthNavItems = (user, dispatch) => {
+
+  function handleLogout () {
+    dispatch(logout())
+  }
+
+  if (user) {
+    return (
+      <Nav pullRight>
+        <NavItem eventKey={NAV_ITEMS.length} onClick={handleLogout}>
+          Logout
+        </NavItem>
+      </Nav>
+    )
+  } else {
+    return (
+      <Nav pullRight>
+        <LinkContainer to='signup'>
+          <NavItem>Sign Up</NavItem>
+        </LinkContainer>
+        <LinkContainer to='login'>
+          <NavItem>Login</NavItem>
+        </LinkContainer>
+      </Nav>
+    )
+  }
 }
 
-const NavBar = props => {
+const NavBar = ({ user, dispatch }) => {
   return (
     <Navbar inverse staticTop>
       <Navbar.Header>
@@ -64,10 +79,15 @@ const NavBar = props => {
           <Logo width={40} />
         </Navbar.Brand>
       </Navbar.Header>
-      {renderNavItems()}
-      {renderAuthNavItems()}
+      {renderNavItems(user)}
+      {renderAuthNavItems(user, dispatch)}
   </Navbar>
   )
+}
+
+NavBar.propTypes = {
+  user: PropTypes.object,
+  dispatch: PropTypes.func
 }
 
 export default NavBar

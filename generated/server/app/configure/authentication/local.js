@@ -29,6 +29,21 @@ module.exports = function (app, db) {
 
   passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, strategyFn))
 
+  // A POST /signup route to create a new user
+  app.post('/signup', (req, res, next) => {
+    User.create(req.body)
+    .then(user => {
+      req.login(user, err => {
+        if (err) {
+          next(err)
+        } else {
+          res.status(201).json(user)
+        }
+      })
+    })
+    .catch(next)
+  })
+
   // A POST /login route is created to handle login
   app.post('/login', (req, res, next) => {
 

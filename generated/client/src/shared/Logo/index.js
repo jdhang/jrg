@@ -1,8 +1,7 @@
 'use strict'
 
 import React, { PropTypes } from 'react'
-
-require('./logo')
+import './logo'
 
 const Logo = (props) => {
   return (

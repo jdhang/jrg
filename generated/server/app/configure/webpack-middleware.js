@@ -1,5 +1,7 @@
 'use strict'
 
+import path from 'path'
+
 module.exports = function (app) {
 
   if (process.env.NODE_ENV !== 'production') {

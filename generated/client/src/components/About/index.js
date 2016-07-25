@@ -3,8 +3,7 @@
 import React from 'react'
 import { Row, Col, Carousel } from 'react-bootstrap'
 import FullstackPics from '../../resources/FullstackPics'
-
-require('./about')
+import './about'
 
 const About = (props) => {
   return (

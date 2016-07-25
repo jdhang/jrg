@@ -1,8 +1,7 @@
 'use strict'
 
 import React from 'react'
-
-require('./docs')
+import './docs'
 
 const Docs = (props) => {
   return (
