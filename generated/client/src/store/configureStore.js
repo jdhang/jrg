@@ -10,7 +10,7 @@ import rootReducer from '../reducers'
 
 export default function configureStore (history, initialState) {
 
-  const middleware = [thunk, routerMiddleware(history)]
+  const middleware = [thunk, promise, routerMiddleware(history)]
   if (process.env.NODE_ENV !== 'production') {
     middleware.push(createLogger())
   }

@@ -33,12 +33,12 @@ module.exports = function (app, db) {
   app.post('/signup', (req, res, next) => {
     User.create(req.body)
     .then(user => {
-      req.login(user, err => {
-        if (err) {
-          next(err)
-        } else {
-          res.status(201).json(user)
-        }
+      req.login(user, signupErr => {
+        if (signupErr) return next(signupErr)
+        // We respond the same way /login does
+        res.status(201).send({
+          user: user.sanitize()
+        })
       })
     })
     .catch(next)

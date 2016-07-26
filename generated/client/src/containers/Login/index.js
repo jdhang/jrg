@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import { AuthForm } from '../../shared'
 import { login } from '../../actions/auth'
 
@@ -12,7 +13,8 @@ class Login extends Component {
   }
 
   handleLogin = (credentials) => {
-    this.props.dispatch(login(credentials))
+    const { dispatch } = this.props
+    dispatch(login(credentials)).then(() => dispatch(push('/membersOnly')))
   }
 
   render () {

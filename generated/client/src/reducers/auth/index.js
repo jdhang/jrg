@@ -23,12 +23,14 @@ export default function auth (state = initialState, action = {}) {
       return {
         ...state,
         loggingIn: false,
-        user: action.user
+        loaded: true,
+        user: action.result.user
       }
     case LOGIN_FAILURE:
       return {
         ...state,
         loggingIn: false,
+        loaded: false,
         user: null,
         loginError: action.error
       }
@@ -41,6 +43,7 @@ export default function auth (state = initialState, action = {}) {
       return {
         ...state,
         loggingOut: false,
+        loaded: false,
         user: null
       }
     case LOGOUT_FAILURE:

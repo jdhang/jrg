@@ -5,7 +5,8 @@ import {
   LOAD_SUCCESS,
   LOAD_FAILURE,
   SIGNUP_SUCCESS,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS
 } from '../../actions/auth'
 
 const initialState = {
@@ -25,13 +26,14 @@ export default function session (state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        user: action.user
+        user: action.result.user
       }
     case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
       return {
         ...state,
-        user: action.response
+        loaded: true,
+        user: action.result.user
       }
     case LOAD_FAILURE:
       return {
@@ -39,6 +41,12 @@ export default function session (state = initialState, action = {}) {
         loading: false,
         loaded: false,
         error: action.error
+      }
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loaded: false,
+        user: null
       }
     default:
       return state

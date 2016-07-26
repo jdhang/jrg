@@ -2,10 +2,11 @@
 
 import 'isomorphic-fetch'
 import { push } from 'react-router-redux'
+import { parseJSON } from '../../utils'
 
 export const LOAD           = 'LOAD'
 export const LOAD_SUCCESS   = 'LOAD_SUCCESS'
-export const LOAD_FAILURE   = 'LOGIN_FAILURE'
+export const LOAD_FAILURE   = 'LOAD_FAILURE'
 export const LOGIN          = 'LOGIN'
 export const LOGIN_SUCCESS  = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE  = 'LOGIN_FAILURE'
@@ -41,10 +42,10 @@ export const load = () => (dispatch, getState) => {
   if (user) {
     dispatch({ type:LOAD_SUCCESS, user })
   } else {
-    return fetch(`${BASE_URL}/session`)
-    .then(res => res.json())
+    return fetch(`${BASE_URL}/session`, { method: 'get' })
+    .then(parseJSON)
     .then(
-      resData => dispatch({ type: LOAD_SUCCESS, resData }),
+      result => dispatch({ type: LOAD_SUCCESS, result }),
       error => dispatch({ type: LOAD_FAILURE, error })
     )
     .catch(error => dispatch({
@@ -52,83 +53,52 @@ export const load = () => (dispatch, getState) => {
       type: LOAD_FAILURE
     }))
   }
-
 }
 
-export const signup = (credentials) => (dispatch) => {
-  dispatch({ type: SIGNUP })
-  return fetch(`${BASE_URL}/signup`, {
-    method: 'post',
-    headers,
-    body: JSON.stringify({...credentials})
-  })
-  .then(res => res.json())
-  .then(
-    result => dispatch({ type: SIGNUP_SUCCESS, result }),
-    error => dispatch({ type: SIGNUP_FAILURE, error })
-  )
-  .catch(error => dispatch({
-    error: error.message || `An error occured`,
-    type: SIGNUP_FAILURE
-  }))
+export const signup = (credentials) => {
+  return {
+    types: [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE],
+    promise: fetch(`${BASE_URL}/signup`, {
+      method: 'post',
+      headers,
+      body: JSON.stringify({...credentials})
+    })
+  }
 }
 
-// export const signup = (credentials) => {
-//   return {
-//     types: [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE],
-//     promise: fetch(`/signup`, {
-//       method: 'post',
-//       headers,
-//       body: JSON.stringify({...credentials})
-//     })
-//   }
+export const login = (credentials) => {
+  return {
+    types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE],
+    promise: fetch(`${BASE_URL}/login`, {
+      method: 'post',
+      headers,
+      body: JSON.stringify({...credentials})
+    })
+  }
+}
+
+export const logout = () => {
+  return {
+    types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE],
+    promise: fetch(`${BASE_URL}/logout`, { method: 'get' })
+  }
+}
+
+// export const logout = () => (dispatch) => {
+//   dispatch({ type: LOGOUT })
+//   return fetch(`${BASE_URL}/logout`)
+//   .then(
+//     response => {
+//       dispatch({ type: LOGOUT_SUCCESS })
+//       dispatch(push('/login'))
+//     },
+//     error => dispatch({ type: LOGOUT_FAILURE, error })
+//   )
+//   .catch(error => dispatch({
+//     error: error.message || `An error occured`,
+//     type: LOGOUT_FAILURE
+//   }))
 // }
-//
-//
-export const login = (credentials) => (dispatch) => {
-  dispatch({ type: LOGIN })
-  return fetch(`${BASE_URL}/login`, {
-    method: 'post',
-    headers,
-    body: JSON.stringify({...credentials})
-  })
-  .then(res => res.json())
-  .then(
-    result => dispatch({ type: LOGIN_SUCCESS, result }),
-    error => dispatch({ type: LOGIN_FAILURE, error })
-  )
-  .catch(error => dispatch({
-    error: error.message || `An error occured`,
-    type: LOGIN_FAILURE
-  }))
-}
-
-// export const login = (credentials) => {
-//   return {
-//     'CALL_API': {
-//       types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE],
-//       endpoint: `/login`,
-//       method: 'post',
-//       body: JSON.stringify({...credentials})
-//     }
-//   }
-// }
-
-export const logout = () => (dispatch) => {
-  dispatch({ type: LOGOUT })
-  return fetch(`${BASE_URL}/logout`)
-  .then(
-    response => {
-      dispatch({ type: LOGOUT_SUCCESS })
-      dispatch(push('/login'))
-    },
-    error => dispatch({ type: LOGOUT_FAILURE, error })
-  )
-  .catch(error => dispatch({
-    error: error.message || `An error occured`,
-    type: LOGOUT_FAILURE
-  }))
-}
 
 export const actions = {
   isLoaded, load, signup, login, logout

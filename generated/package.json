@@ -5,7 +5,9 @@
   "main": "server/start.js",
   "scripts": {
     "start": "nodemon --watch server -e js,html server/start.js",
-    "build": "webpack --config ./webpack.prod.config.js"
+    "build": "webpack --config ./webpack.prod.config.js",
+    "test": "NODE_ENV='testing' mocha --compilers js:babel-register **/spec.js",
+    "test:watch": "NODE_ENV='testing' mocha --watch --compilers js:babel-register **/spec.js"
   },
   "engines": {
     "node": "6.3.0",

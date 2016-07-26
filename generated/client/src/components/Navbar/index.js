@@ -2,6 +2,7 @@
 
 import React, { PropTypes } from 'react'
 import { IndexLink, Link } from 'react-router'
+import { push } from 'react-router-redux'
 import { Navbar, Nav, NavItem, Button } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { logout } from '../../actions/auth'
@@ -46,7 +47,7 @@ const renderNavItems = (user) => {
 const renderAuthNavItems = (user, dispatch) => {
 
   function handleLogout () {
-    dispatch(logout())
+    dispatch(logout()).then(() => dispatch(push('/login')))
   }
 
   if (user) {
