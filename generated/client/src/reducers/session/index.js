@@ -34,23 +34,16 @@ export default function session (state = initialState, action = {}) {
     case LOGOUT_SUCCESS:
       return {
         ...state,
+        loading: false,
         loaded: false,
         user: null
       }
     case LOAD_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        loaded: false,
-        error: action.error
-      }
     case SIGNUP_FAILURE:
     case LOGIN_FAILURE:
       return {
         ...state,
         loading: false,
-        loaded: false,
-        user: null,
         error: action.error
       }
     case LOGOUT_FAILURE:

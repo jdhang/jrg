@@ -2,7 +2,6 @@
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import api from '../../middleware/api'
 import promise from '../../middleware/promise'
 import { types, actions } from '../../actions/auth'
 import nock from 'nock'
