@@ -84,22 +84,6 @@ export const logout = () => {
   }
 }
 
-// export const logout = () => (dispatch) => {
-//   dispatch({ type: LOGOUT })
-//   return fetch(`${BASE_URL}/logout`)
-//   .then(
-//     response => {
-//       dispatch({ type: LOGOUT_SUCCESS })
-//       dispatch(push('/login'))
-//     },
-//     error => dispatch({ type: LOGOUT_FAILURE, error })
-//   )
-//   .catch(error => dispatch({
-//     error: error.message || `An error occured`,
-//     type: LOGOUT_FAILURE
-//   }))
-// }
-
 export const actions = {
   isLoaded, load, signup, login, logout
 }

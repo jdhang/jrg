@@ -1,12 +1,10 @@
 'use strict'
 
 import {
-  LOAD,
-  LOAD_SUCCESS,
-  LOAD_FAILURE,
-  SIGNUP_SUCCESS,
-  LOGIN_SUCCESS,
-  LOGOUT_SUCCESS
+  LOAD, LOAD_SUCCESS, LOAD_FAILURE,
+  SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE,
+  LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE,
+  LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE,
 } from '../../actions/auth'
 
 const initialState = {
@@ -17,23 +15,27 @@ export default function session (state = initialState, action = {}) {
 
   switch (action.type) {
     case LOAD:
+    case SIGNUP:
+    case LOGIN:
+    case LOGOUT:
       return {
         ...state,
         loading: true
       }
     case LOAD_SUCCESS:
+    case SIGNUP_SUCCESS:
+    case LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
         user: action.result.user
       }
-    case SIGNUP_SUCCESS:
-    case LOGIN_SUCCESS:
+    case LOGOUT_SUCCESS:
       return {
         ...state,
-        loaded: true,
-        user: action.result.user
+        loaded: false,
+        user: null
       }
     case LOAD_FAILURE:
       return {
@@ -42,11 +44,20 @@ export default function session (state = initialState, action = {}) {
         loaded: false,
         error: action.error
       }
-    case LOGOUT_SUCCESS:
+    case SIGNUP_FAILURE:
+    case LOGIN_FAILURE:
       return {
         ...state,
+        loading: false,
         loaded: false,
-        user: null
+        user: null,
+        error: action.error
+      }
+    case LOGOUT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
       }
     default:
       return state
