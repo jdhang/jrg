@@ -32,7 +32,5 @@ console.log(chalk.green('Generating your new REACT application!'))
 copyFiles().then(renameGitignore).then(() => {
   console.log(chalk.blue('Completed!'))
   console.log(chalk.red('Do not forget to'),
-              chalk.yellow('npm install'),
-              'AND',
-              chalk.green('webpack'))
+              chalk.yellow('npm install'))
 })

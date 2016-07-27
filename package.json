@@ -6,7 +6,7 @@
     "jrg": "bin/jrg"
   },
   "scripts": {
-    "compile": "./node_modules/.bin/babel -d bin/",
+    "compile": "./node_modules/.bin/babel -d bin/ src/ && cp ./src/jrg ./bin",
     "prepublish": "npm run compile"
   },
   "keywords": [
