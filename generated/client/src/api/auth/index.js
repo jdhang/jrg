@@ -3,7 +3,7 @@
 import axios from 'axios'
 import { parseJSON, parseData } from '../../utils'
 
-const BASE_URL = 'http://localhost:8080'
+const BASE_URL = process.env.URL || 'http://localhost:8080'
 
 export const fetchSession = () => {
   return axios.get(`${BASE_URL}/session`).then(parseData)
