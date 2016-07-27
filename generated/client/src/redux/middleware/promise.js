@@ -1,6 +1,6 @@
 'use strict'
 
-import { parseJSON, parseData } from '../utils'
+import { parseJSON, parseData } from '../../utils'
 
 export default () => next => action => {
 

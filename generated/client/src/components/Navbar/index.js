@@ -5,7 +5,7 @@ import { IndexLink, Link } from 'react-router'
 import { push } from 'react-router-redux'
 import { Navbar, Nav, NavItem, Button } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
-import { logout } from '../../actions/auth'
+import { logout } from '../../redux/modules/auth'
 import Logo from '../../shared/Logo'
 import './navbar'
 

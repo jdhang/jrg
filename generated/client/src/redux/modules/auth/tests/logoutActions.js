@@ -1,8 +1,7 @@
 'use strict'
 
 import { expect } from 'chai'
-import session from '../../../reducers/session'
-import { LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../../../actions/auth'
+import reducer, { LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../../auth'
 
 const credentials = {
   email: 'test@test.com',
@@ -15,7 +14,7 @@ const failureRes = {
 
 export default function () {
   describe('LOGOUT', () => {
-    const nextState = session(
+    const nextState = reducer(
       { loading: false, error: failureRes, user: credentials },
       { type: LOGOUT }
     )
@@ -30,7 +29,7 @@ export default function () {
   })
 
   describe('LOGOUT_SUCCESS', () => {
-    const nextState = session(
+    const nextState = reducer(
       { loading: true, loaded: true, user: credentials },
       { type: LOGOUT_SUCCESS }
     )
@@ -49,7 +48,7 @@ export default function () {
   })
 
   describe('LOGOUT_FAILURE', () => {
-    const nextState = session(
+    const nextState = reducer(
       { loading: true, loaded: true, user: credentials },
       { type: LOGOUT_FAILURE, error: failureRes }
     )

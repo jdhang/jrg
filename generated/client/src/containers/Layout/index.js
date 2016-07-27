@@ -27,6 +27,6 @@ class Layout extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ user: state.session.user })
+const mapStateToProps = (state) => ({ user: state.auth.user })
 
 export default connect(mapStateToProps)(Layout)

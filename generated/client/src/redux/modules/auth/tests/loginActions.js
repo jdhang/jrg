@@ -1,8 +1,7 @@
 'use strict'
 
 import { expect } from 'chai'
-import session from '../../../reducers/session'
-import { LOAD, LOAD_SUCCESS, LOAD_FAILURE } from '../../../actions/auth'
+import reducer, { LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE } from '../../auth'
 
 const successRes = {
   user: { email: 'test@test.com', password: 'test1234' }
@@ -13,25 +12,25 @@ const failureRes = {
 }
 
 export default function () {
-  describe('LOAD', () => {
-    const nextState = session(
-      { loading: false, loadError: failureRes },
-      { type: LOAD }
+  describe('LOGIN', () => {
+    const nextState = reducer(
+      { loading: false, error: failureRes },
+      { type: LOGIN }
     )
 
     it('by setting \'loading\' to true', () => {
-      expect(nextState.loading).to.be.true
     })
+      expect(nextState.loading).to.be.true
 
-    it('by setting \'loadError\' to null', () => {
-      expect(nextState.loadError).to.be.null
+    it('by setting \'error\' to null', () => {
+      expect(nextState.error).to.be.null
     })
   })
 
-  describe('LOAD_SUCCESS', () => {
-    const nextState = session(
+  describe('LOGIN_SUCCESS', () => {
+    const nextState = reducer(
       { loading: true, loaded: false },
-      { type: LOAD_SUCCESS, result: successRes }
+      { type: LOGIN_SUCCESS, result: successRes }
     )
 
     it('by setting \'loading\' to false', () => {
@@ -47,18 +46,18 @@ export default function () {
     })
   })
 
-  describe('LOAD_FAILURE', () => {
-    const nextState = session(
+  describe('LOGIN_FAILURE', () => {
+    const nextState = reducer(
       { loading: true, loaded: false },
-      { type: LOAD_FAILURE, error: failureRes}
+      { type: LOGIN_FAILURE, error: failureRes}
     )
 
     it('by setting \'loading\' to false', () => {
       expect(nextState.loading).to.be.false
     })
 
-    it('by setting \'loadError\'', () => {
-      expect(nextState.loadError).to.exist
+    it('by setting \'error\'', () => {
+      expect(nextState.error).to.exist
     })
 
     it('by not setting \'loaded\' to true', () => {

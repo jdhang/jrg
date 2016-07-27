@@ -1,7 +1,7 @@
 'use strict'
 
 import { expect } from 'chai'
-import { isLoaded } from '../../../actions/auth'
+import { isLoaded } from '../../auth'
 
 export default function (mockStore) {
   describe('isLoaded', () => {

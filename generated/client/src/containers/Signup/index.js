@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { AuthForm } from '../../shared'
-import { signup } from '../../actions/auth'
+import { signup } from '../../redux/modules/auth'
 
 class Signup extends Component {
 

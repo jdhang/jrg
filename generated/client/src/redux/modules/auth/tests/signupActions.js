@@ -1,8 +1,7 @@
 'use strict'
 
 import { expect } from 'chai'
-import session from '../../../reducers/session'
-import { LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE } from '../../../actions/auth'
+import reducer, { SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../../auth'
 
 const successRes = {
   user: { email: 'test@test.com', password: 'test1234' }
@@ -13,10 +12,10 @@ const failureRes = {
 }
 
 export default function () {
-  describe('LOGIN', () => {
-    const nextState = session(
+  describe('SIGNUP', () => {
+    const nextState = reducer(
       { loading: false, error: failureRes },
-      { type: LOGIN }
+      { type: SIGNUP }
     )
 
     it('by setting \'loading\' to true', () => {
@@ -28,10 +27,10 @@ export default function () {
     })
   })
 
-  describe('LOGIN_SUCCESS', () => {
-    const nextState = session(
+  describe('SIGNUP_SUCCESS', () => {
+    const nextState = reducer(
       { loading: true, loaded: false },
-      { type: LOGIN_SUCCESS, result: successRes }
+      { type: SIGNUP_SUCCESS, result: successRes }
     )
 
     it('by setting \'loading\' to false', () => {
@@ -47,10 +46,10 @@ export default function () {
     })
   })
 
-  describe('LOGIN_FAILURE', () => {
-    const nextState = session(
+  describe('SIGNUP_FAILURE', () => {
+    const nextState = reducer(
       { loading: true, loaded: false },
-      { type: LOGIN_FAILURE, error: failureRes}
+      { type: SIGNUP_FAILURE, error: failureRes}
     )
 
     it('by setting \'loading\' to false', () => {

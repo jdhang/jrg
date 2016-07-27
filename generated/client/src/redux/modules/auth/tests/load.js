@@ -5,7 +5,7 @@ import nock from 'nock'
 import {
   load,
   LOAD, LOAD_SUCCESS, LOAD_FAILURE
-} from '../../../actions/auth'
+} from '../../auth'
 
 const credentials = {
   email: 'test@test.com',

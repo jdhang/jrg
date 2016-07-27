@@ -5,7 +5,7 @@ import nock from 'nock'
 import {
   signup,
   SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE
-} from '../../../actions/auth'
+} from '../../auth'
 
 const credentials = {
   email: 'test@test.com',

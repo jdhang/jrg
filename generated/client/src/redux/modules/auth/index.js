@@ -1,8 +1,7 @@
 'use strict'
 
-import 'isomorphic-fetch'
 import { push } from 'react-router-redux'
-import { auth } from '../../api'
+import { auth } from '../../../api'
 
 export const LOAD           = 'LOAD'
 export const LOAD_SUCCESS   = 'LOAD_SUCCESS'
@@ -17,20 +16,13 @@ export const SIGNUP         = 'SIGNUP'
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
 
-export const types = {
-  LOAD, LOAD_SUCCESS, LOAD_FAILURE,
-  LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE,
-  LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE,
-  SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE
-}
-
 export function isLoaded (globalState) {
-  return globalState.session && globalState.session.loaded
+  return globalState.auth && globalState.auth.loaded
 }
 
 export const load = () => (dispatch, getState) => {
   dispatch({ type: LOAD })
-  const { session: { user } } = getState()
+  const { auth: { user } } = getState()
 
   if (user) {
     dispatch({ type:LOAD_SUCCESS, user })
@@ -47,32 +39,78 @@ export const load = () => (dispatch, getState) => {
   }
 }
 
-export const signup = (credentials) => {
+export function signup (credentials) {
   return {
     types: [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE],
     promise: auth.trySignup(credentials)
   }
 }
 
-export const login = (credentials) => {
+export function login (credentials) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE],
     promise: auth.tryLogin(credentials)
   }
 }
 
-export const logout = () => {
+export function logout () {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE],
     promise: auth.tryLogout()
   }
 }
 
-export const actions = {
-  isLoaded, load, signup, login, logout
+const initialState = {
+  loaded: false
 }
 
-export default {
-  types,
-  actions
+export default function reducer (state = initialState, action) {
+  switch (action.type) {
+    case LOAD:
+      return {
+        ...state,
+        loading: true,
+        loadError: null
+      }
+    case SIGNUP:
+    case LOGIN:
+    case LOGOUT:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      }
+    case LOAD_SUCCESS:
+    case SIGNUP_SUCCESS:
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        user: action.result.user
+      }
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        user: null
+      }
+    case LOAD_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        loadError: action.error.response
+      }
+    case SIGNUP_FAILURE:
+    case LOGIN_FAILURE:
+    case LOGOUT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error.response
+      }
+    default:
+      return state
+  }
 }

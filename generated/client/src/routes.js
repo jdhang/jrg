@@ -4,17 +4,17 @@ import React from 'react'
 import Promise from 'bluebird'
 import { Route, IndexRoute } from 'react-router'
 import {
-  isLoaded as isSessionLoaded,
-  load as loadSession
-} from '../actions/auth'
-import { About, Docs, Home, MembersOnly } from '../components'
-import { Layout, Login, Signup } from '../containers'
-import { NotFound } from '../shared'
+  isLoaded as isAuthLoaded,
+  load as loadAuth
+} from './redux/modules/auth'
+import { About, Docs, Home, MembersOnly } from './components'
+import { Layout, Login, Signup } from './containers'
+import { NotFound } from './shared'
 
 const getRoutes = (store) => {
-  const getSession = (nextState, replace, next) => {
-    if (!isSessionLoaded(store.getState())) {
-      store.dispatch(loadSession())
+  const getAuth = (nextState, replace, next) => {
+    if (!isAuthLoaded(store.getState())) {
+      store.dispatch(loadAuth())
       .then(() => next())
     } else {
       next()
@@ -22,39 +22,39 @@ const getRoutes = (store) => {
   }
 
   const requireLogin = (nextState, replace, next) => {
-    function checkSession () {
-      const { session: { user }} = store.getState()
+    function checkAuth () {
+      const { auth: { user }} = store.getState()
       if (!user) {
         replace('/login')
       }
       next()
     }
 
-    if (!isSessionLoaded(store.getState())) {
-      store.dispatch(loadSession()).then(checkSession);
+    if (!isAuthLoaded(store.getState())) {
+      store.dispatch(loadAuth()).then(checkAuth);
     } else {
-      checkSession();
+      checkAuth();
     }
   }
 
   const requireNoUser = (nextState, replace, next) => {
-    function checkSession () {
-      const { session: { user }} = store.getState()
+    function checkAuth () {
+      const { auth: { user }} = store.getState()
       if (user) {
         replace('/membersOnly')
       }
       next()
     }
 
-    if (!isSessionLoaded(store.getState())) {
-      store.dispatch(loadSession()).then(checkSession);
+    if (!isAuthLoaded(store.getState())) {
+      store.dispatch(loadAuth()).then(checkAuth);
     } else {
-      checkSession();
+      checkAuth();
     }
   }
 
   return (
-    <Route path='/' onEnter={getSession} component={Layout}>
+    <Route path='/' onEnter={getAuth} component={Layout}>
 
       { /* Home route */ }
       <IndexRoute component={Home} />
