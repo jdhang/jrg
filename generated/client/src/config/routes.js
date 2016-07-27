@@ -4,32 +4,57 @@ import React from 'react'
 import Promise from 'bluebird'
 import { Route, IndexRoute } from 'react-router'
 import {
-  isLoaded as isAuthLoaded,
-  load as loadAuth
+  isLoaded as isSessionLoaded,
+  load as loadSession
 } from '../actions/auth'
 import { About, Docs, Home, MembersOnly } from '../components'
 import { Layout, Login, Signup } from '../containers'
 import { NotFound } from '../shared'
 
 const getRoutes = (store) => {
+  const getSession = (nextState, replace, next) => {
+    if (!isSessionLoaded(store.getState())) {
+      store.dispatch(loadSession())
+      .then(() => next())
+    } else {
+      next()
+    }
+  }
+
   const requireLogin = (nextState, replace, next) => {
-    function checkAuth () {
+    function checkSession () {
       const { session: { user }} = store.getState()
       if (!user) {
-        replace('/')
+        replace('/login')
       }
       next()
     }
 
-    if (!isAuthLoaded(store.getState())) {
-      store.dispatch(loadAuth()).then(checkAuth);
+    if (!isSessionLoaded(store.getState())) {
+      store.dispatch(loadSession()).then(checkSession);
     } else {
-      checkAuth();
+      checkSession();
+    }
+  }
+
+  const requireNoUser = (nextState, replace, next) => {
+    function checkSession () {
+      const { session: { user }} = store.getState()
+      if (user) {
+        replace('/membersOnly')
+      }
+      next()
+    }
+
+    if (!isSessionLoaded(store.getState())) {
+      store.dispatch(loadSession()).then(checkSession);
+    } else {
+      checkSession();
     }
   }
 
   return (
-    <Route path='/' component={Layout}>
+    <Route path='/' onEnter={getSession} component={Layout}>
 
       { /* Home route */ }
       <IndexRoute component={Home} />
@@ -39,11 +64,15 @@ const getRoutes = (store) => {
         <Route path='membersOnly' component={MembersOnly} />
       </Route>
 
+      { /* Unauthenticated Routes Only */ }
+      <Route onEnter={requireNoUser}>
+        <Route path='login' component={Login} />
+        <Route path='signup' component={Signup} />
+      </Route>
+
       { /* Routes */ }
       <Route path='about' component={About} />
       <Route path='docs' component={Docs} />
-      <Route path='login' component={Login} />
-      <Route path='signup' component={Signup} />
 
       { /* Catch all routes */ }
       <Route path='*' component={NotFound} />

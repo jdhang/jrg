@@ -17,10 +17,10 @@ module.exports = function (app, db) {
   app.getValue = path => app.get(path)
 
   // Adding configurations
+  addWebpackMiddleware(app)
   addAppVariables(app)
   addStaticMiddlware(app)
   addParsingMiddlware(app)
-  addWebpackMiddleware(app)
 
   // Logging middleware, set as application
   // variable inside of server/app/configure/app-variables.js

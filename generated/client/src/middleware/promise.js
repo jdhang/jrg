@@ -1,6 +1,6 @@
 'use strict'
 
-import { parseJSON } from '../utils'
+import { parseJSON, parseData } from '../utils'
 
 export default () => next => action => {
 
@@ -14,7 +14,7 @@ export default () => next => action => {
   next({ ...rest, type: REQUEST })
 
   return promise
-  .then(parseJSON)
+  .then(parseData)
   .then(
     result => next({ ...rest, result, type: SUCCESS }),
     error => next({ ...rest, error, type: FAILURE})

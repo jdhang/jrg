@@ -2,7 +2,7 @@
 
 import 'isomorphic-fetch'
 import { push } from 'react-router-redux'
-import { parseJSON } from '../../utils'
+import { auth } from '../../api'
 
 export const LOAD           = 'LOAD'
 export const LOAD_SUCCESS   = 'LOAD_SUCCESS'
@@ -24,13 +24,6 @@ export const types = {
   SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE
 }
 
-const BASE_URL = 'http://localhost:8080'
-
-const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json',
-}
-
 export function isLoaded (globalState) {
   return globalState.session && globalState.session.loaded
 }
@@ -42,8 +35,7 @@ export const load = () => (dispatch, getState) => {
   if (user) {
     dispatch({ type:LOAD_SUCCESS, user })
   } else {
-    return fetch(`${BASE_URL}/session`, { method: 'get' })
-    .then(parseJSON)
+    return auth.fetchSession()
     .then(
       result => dispatch({ type: LOAD_SUCCESS, result }),
       error => dispatch({ type: LOAD_FAILURE, error })
@@ -58,29 +50,21 @@ export const load = () => (dispatch, getState) => {
 export const signup = (credentials) => {
   return {
     types: [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE],
-    promise: fetch(`${BASE_URL}/signup`, {
-      method: 'post',
-      headers,
-      body: JSON.stringify({...credentials})
-    })
+    promise: auth.trySignup(credentials)
   }
 }
 
 export const login = (credentials) => {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE],
-    promise: fetch(`${BASE_URL}/login`, {
-      method: 'post',
-      headers,
-      body: JSON.stringify({...credentials})
-    })
+    promise: auth.tryLogin(credentials)
   }
 }
 
 export const logout = () => {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE],
-    promise: fetch(`${BASE_URL}/logout`, { method: 'get' })
+    promise: auth.tryLogout()
   }
 }
 

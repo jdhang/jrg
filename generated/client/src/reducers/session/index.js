@@ -15,12 +15,18 @@ export default function session (state = initialState, action = {}) {
 
   switch (action.type) {
     case LOAD:
+      return {
+        ...state,
+        loading: true,
+        loadError: null
+      }
     case SIGNUP:
     case LOGIN:
     case LOGOUT:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       }
     case LOAD_SUCCESS:
     case SIGNUP_SUCCESS:
@@ -39,18 +45,18 @@ export default function session (state = initialState, action = {}) {
         user: null
       }
     case LOAD_FAILURE:
-    case SIGNUP_FAILURE:
-    case LOGIN_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.error
+        loadError: action.error.response
       }
+    case SIGNUP_FAILURE:
+    case LOGIN_FAILURE:
     case LOGOUT_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.error
+        error: action.error.response
       }
     default:
       return state

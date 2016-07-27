@@ -35,7 +35,7 @@ module.exports = function (app, db) {
     .then(user => {
       req.login(user, signupErr => {
         if (signupErr) return next(signupErr)
-        // We respond the same way /login does
+        // We respond the same way POST /login does
         res.status(201).send({
           user: user.sanitize()
         })
