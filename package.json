@@ -1,9 +1,13 @@
 {
   "name": "jrg",
-  "version": "0.0.2",
-  "description": "Generate Me!",
+  "version": "0.0.3",
+  "description": "Generate that React App!",
   "bin": {
     "jrg": "bin/jrg"
+  },
+  "scripts": {
+    "compile": "./node_modules/.bin/babel -d bin/",
+    "prepublish": "npm run compile"
   },
   "keywords": [
     "node",
@@ -24,5 +28,10 @@
   "author": {
     "name": "Jason Hang",
     "email": "dev.jdhang@gmail.com"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0"
   }
 }
