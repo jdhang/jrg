@@ -30,7 +30,12 @@ const renameGitignore = () => {
 
 console.log(chalk.green('Generating your new REACT application!'))
 copyFiles().then(renameGitignore).then(() => {
-  console.log(chalk.blue('Completed!'))
-  console.log(chalk.red('Do not forget to'),
-              chalk.yellow('npm install'))
+  console.log(chalk.blue('Completed!'));
+  const output = [
+    chalk.red('Do not forget to'),
+    chalk.green(`cd ${process.argv[2] || 'test'}`),
+    chalk.red('and'),
+    chalk.yellow('npm install')
+  ];
+  console.log.apply(console, output)
 })
