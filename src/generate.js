@@ -6,6 +6,7 @@ import chalk from 'chalk'
 
 const ncp = bluebird.promisify(require('ncp').ncp)
 const rename = bluebird.promisify(require('fs').rename)
+const defaultDirName = 'generated'
 
 ncp.limit = 16
 
@@ -14,7 +15,7 @@ const newProjectDir = (() => {
     return path.resolve(process.cwd(), process.argv[2])
   }
 
-  return path.join(process.cwd(), 'generated')
+  return path.join(process.cwd(), defaultDirName)
 
 })()
 
@@ -33,7 +34,7 @@ copyFiles().then(renameGitignore).then(() => {
   console.log(chalk.blue('Completed!'));
   const output = [
     chalk.red('Do not forget to'),
-    chalk.green(`cd ${process.argv[2] || 'test'}`),
+    chalk.green(`cd ${process.argv[2] || defaultDirName}`),
     chalk.red('and'),
     chalk.yellow('npm install')
   ];
