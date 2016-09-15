@@ -8,7 +8,7 @@ const ncp = bluebird.promisify(require('ncp').ncp);
 const rename = bluebird.promisify(require('fs').rename);
 const defaultDirName = 'generated';
 
-ncp.limit = 1000;
+ncp.limit = 16;
 
 const newProjectDir = (() => {
   if (process.argv[2]) {
