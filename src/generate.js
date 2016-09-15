@@ -1,14 +1,14 @@
 'use strict'
 
-import bluebird from 'bluebird'
-import path from 'path'
-import chalk from 'chalk'
+const bluebird= require('bluebird');
+const path = require('path');
+const chalk = require('chalk');
 
-const ncp = bluebird.promisify(require('ncp').ncp)
-const rename = bluebird.promisify(require('fs').rename)
-const defaultDirName = 'generated'
+const ncp = bluebird.promisify(require('ncp').ncp);
+const rename = bluebird.promisify(require('fs').rename);
+const defaultDirName = 'generated';
 
-ncp.limit = 16
+ncp.limit = 1000;
 
 const newProjectDir = (() => {
   if (process.argv[2]) {

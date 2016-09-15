@@ -1,14 +1,11 @@
 {
   "name": "jrg",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Generate that React App!",
   "bin": {
     "jrg": "bin/jrg"
   },
-  "scripts": {
-    "compile": "./node_modules/.bin/babel -d bin/ src/ && cp ./src/jrg ./bin",
-    "prepublish": "npm run compile"
-  },
+  "scripts": {},
   "keywords": [
     "node",
     "express",
