@@ -17,7 +17,7 @@ export default function (mockStore) {
     let store
 
     beforeEach(() => {
-      store = mockStore({ session: {} })
+      store = mockStore({ auth: {} })
     })
 
     afterEach(() => {

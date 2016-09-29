@@ -1,6 +1,6 @@
 'use strict'
 
-import axios from 'axios'
+import axios from 'axios';
 import { parseJSON, parseData } from '../../utils'
 
 const BASE_URL = process.env.URL || 'http://localhost:8080'
@@ -28,4 +28,4 @@ const auth = {
   tryLogout
 }
 
-export default auth
+export default auth;

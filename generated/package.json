@@ -5,9 +5,12 @@
   "main": "server/start.js",
   "scripts": {
     "start": "nodemon --watch server -e js,html server/start.js",
-    "build": "NODE_ENV='production' webpack -p --config ./webpack.prod.config.js",
-    "test": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register **/spec.js",
-    "test:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha --watch --compilers js:babel-register **/spec.js"
+    "postinstall": "npm run build",
+    "build": "webpack --config ./webpack.dev.config.js",
+    "build:production": "NODE_ENV='production' webpack -p --config ./webpack.prod.config.js",
+    "test": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register ./client/**/*.test.js",
+    "test:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./client/**/*.test.js",
+    "cover": "nyc --reporter=lcov --reporter=text --reporter=html --require babel-register npm test"
   },
   "engines": {
     "node": "6.3.0",
@@ -56,6 +59,7 @@
     "nock": "^8.0.0",
     "node-sass": "^3.8.0",
     "nodemon": "^1.9.2",
+    "nyc": "^8.3.0",
     "postcss-loader": "^0.9.1",
     "precss": "^1.4.0",
     "redux-logger": "^2.6.1",

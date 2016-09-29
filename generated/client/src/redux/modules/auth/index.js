@@ -25,17 +25,19 @@ export const load = () => (dispatch, getState) => {
   const { auth: { user } } = getState()
 
   if (user) {
-    dispatch({ type:LOAD_SUCCESS, user })
+    dispatch({ type: LOAD_SUCCESS, user })
   } else {
     return auth.fetchSession()
     .then(
       result => dispatch({ type: LOAD_SUCCESS, result }),
       error => dispatch({ type: LOAD_FAILURE, error })
     )
-    .catch(error => dispatch({
-      error: error.message || `An error occured`,
-      type: LOAD_FAILURE
-    }))
+    .catch(error => {
+      dispatch({
+        type: LOAD_FAILURE,
+        error: error.message || `An error occured`
+      })
+    })
   }
 }
 

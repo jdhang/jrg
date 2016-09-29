@@ -23,11 +23,11 @@ const getRoutes = (store) => {
 
   const requireLogin = (nextState, replace, next) => {
     function checkAuth () {
-      const { auth: { user }} = store.getState()
+      const { auth: { user } } = store.getState();
       if (!user) {
-        replace('/login')
+        replace('/');
       }
-      next()
+      next();
     }
 
     if (!isAuthLoaded(store.getState())) {
@@ -39,15 +39,15 @@ const getRoutes = (store) => {
 
   const requireNoUser = (nextState, replace, next) => {
     function checkAuth () {
-      const { auth: { user }} = store.getState()
+      const { auth: { user } } = store.getState();
       if (user) {
-        replace('/membersOnly')
+        replace('/membersOnly');
       }
-      next()
+      next();
     }
 
     if (!isAuthLoaded(store.getState())) {
-      store.dispatch(loadAuth()).then(checkAuth);
+      store.dispatch(loadAuth()).then(checkAuth)
     } else {
       checkAuth();
     }
