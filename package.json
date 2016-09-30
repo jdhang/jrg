@@ -1,9 +1,9 @@
 {
-  "name": "nrg",
+  "name": "jrg",
   "version": "0.1.1",
   "description": "Generate that React App!",
   "bin": {
-    "nrg": "bin/nrg"
+    "jrg": "bin/jrg"
   },
   "scripts": {},
   "keywords": [
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jdhang/nrg.git"
+    "url": "https://github.com/jdhang/jrg.git"
   },
   "author": {
     "name": "Jason Hang",
