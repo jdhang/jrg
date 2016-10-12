@@ -1,3 +1,3 @@
+export Auth from './Auth'
 export Layout from './Layout'
-export Login from './Login'
-export Signup from './Signup'
+export Navbar from './Navbar'

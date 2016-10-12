@@ -1,0 +1,57 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700);#about {
+  text-align: center; }
+  #about p {
+    width: 40%;
+    margin: 0 auto;
+    text-align: justify;
+    font-size: 22px;
+    font-weight: 300;
+    float: left; }
+  #about .carousel {
+    float: right;
+    width: 55%;
+    overflow: hidden;
+    margin: 0 auto; }
+    #about .carousel .carousel-inner {
+      height: 500px !important; }
+      #about .carousel .carousel-inner img {
+        max-width: 100%;
+        max-height: 500px;
+        display: block;
+        margin: 0 auto; }
+  #about .carousel-control.left, #about .carousel-control.right {
+    background-image: none; }
+#docs {
+  text-align: center; }
+.logo img {
+  display: block;
+  width: 100%; }
+#home {
+  text-align: center; }
+  #home .logo {
+    width: 300px;
+    margin: 0 auto; }
+#members-only {
+  text-align: center; }
+.navbar .logo {
+  margin-top: 12px;
+  margin-right: 20px;
+  width: 40px; }
+
+.navbar .navbar-nav > .active > a, .navbar .navbar-nav > li > a {
+  padding: 0;
+  margin: 15px;
+  border-bottom: 2px solid #222; }
+
+.navbar .navbar-nav > .active > a, .navbar .navbar-nav > .active > a:focus, .navbar .navbar-nav > .active > a:hover, .navbar .navbar-nav > li > a:focus, .navbar .navbar-nav > li > a:hover {
+  color: #ed1b24;
+  border-bottom: 2px solid #ed1b24;
+  background-color: transparent; }
+
+.navbar .navbar-nav > .active > a {
+  background-color: transparent; }
+body {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+#main {
+  padding-top: 60px; }
