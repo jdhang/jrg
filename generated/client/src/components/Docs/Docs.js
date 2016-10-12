@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import './_Docs'
+import './Docs.scss'
 
 const Docs = () => {
   return (

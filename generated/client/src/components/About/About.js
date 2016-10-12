@@ -3,7 +3,7 @@
 import React from 'react'
 import { Row, Col, Carousel } from 'react-bootstrap'
 import getPics from '../../resources/Pics'
-import './_About'
+import './About.scss'
 
 const About = () => {
   return (
@@ -11,7 +11,8 @@ const About = () => {
       <p>
         This website is built with React/Redux, Express, Sequelize and Node and
         was created from a scaffolding tool inspired by the generator created
-        by Fullstack Academy. Here are some random pictures:
+        by <a href="https://github.com/FullstackAcademy/fsg">Fullstack Academy</a>.
+        Here are some random pictures:
       </p>
       <Carousel interval={2000} indicators={false}>
         {

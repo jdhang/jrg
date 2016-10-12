@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import './_MembersOnly'
+import './MembersOnly.scss'
 
 const MembersOnly = () => {
   return (

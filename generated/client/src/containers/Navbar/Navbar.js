@@ -7,7 +7,7 @@ import { Navbar, Nav, NavItem, Button } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { logout } from '../../redux/modules/auth'
 import Logo from '../../shared/Logo'
-import './_Navbar'
+import './Navbar.scss'
 
 const NAV_ITEMS = [
   { label: 'Home', path: '/' },

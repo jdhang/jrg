@@ -3,7 +3,7 @@
 import React from 'react'
 import Logo from '../../shared/Logo'
 import getRandomGreeting from '../../resources/RandomGreetings'
-import './_Home'
+import './Home.scss'
 
 const Home = () => {
   return (
