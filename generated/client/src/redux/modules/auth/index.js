@@ -63,7 +63,11 @@ export function logout () {
 }
 
 const initialState = {
-  loaded: false
+  loading: false,
+  loaded: false,
+  loadError: null,
+  user: null,
+  error: null
 }
 
 export default function reducer (state = initialState, action) {

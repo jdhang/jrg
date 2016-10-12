@@ -8,7 +8,7 @@ import {
   load as loadAuth
 } from './redux/modules/auth'
 import { About, Docs, Home, MembersOnly } from './components'
-import { Layout, Login, Signup } from './containers'
+import { Layout, Auth } from './containers'
 import { NotFound } from './shared'
 
 const getRoutes = (store) => {
@@ -66,8 +66,8 @@ const getRoutes = (store) => {
 
       { /* Unauthenticated Routes Only */ }
       <Route onEnter={requireNoUser}>
-        <Route path='login' component={Login} />
-        <Route path='signup' component={Signup} />
+        <Route path='login' component={Auth} />
+        <Route path='signup' component={Auth} />
       </Route>
 
       { /* Routes */ }

@@ -1,6 +1,6 @@
 $red: #ed1b24;
-$inverse: #222;
-$default: #efefef;
+$inverse-bg: #222;
+$default-bg: #efefef;
 
 .navbar {
 
@@ -14,7 +14,7 @@ $default: #efefef;
   .navbar-nav>li>a {
     padding: 0;
     margin: 15px;
-    border-bottom: 2px solid $inverse;
+    border-bottom: 2px solid $inverse-bg;
   }
 
   .navbar-nav>.active>a,

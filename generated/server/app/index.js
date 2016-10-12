@@ -22,13 +22,11 @@ module.exports = function (db) {
    does not exist.
    */
   app.use((req, res, next) => {
-
     if (path.extname(req.path).length > 0) {
       res.status(404).end()
     } else {
       next(null)
     }
-
   })
 
   app.get('*', (req, res) => {
