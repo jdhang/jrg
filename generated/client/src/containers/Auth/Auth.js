@@ -52,7 +52,7 @@ class Auth extends Component {
           title='Login'
           buttonLabel='Login'
           buttonStyle='primary'
-          onSubmit={this.handleSignup}
+          onSubmit={this.handleLogin}
         />
       )
     } else {

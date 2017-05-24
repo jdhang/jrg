@@ -10,25 +10,42 @@ $default-bg: #efefef;
     width: 40px;
   }
 
-  .navbar-nav>.active>a,
-  .navbar-nav>li>a {
-    padding: 0;
+  .navbar-nav > .active > a,
+  .navbar-nav > li > a {
+    padding-top: 0;
+    padding-bottom: 2px;
     margin: 15px;
-    border-bottom: 2px solid $inverse-bg;
   }
 
-  .navbar-nav>.active>a,
-  .navbar-nav>.active>a:focus,
-  .navbar-nav>.active>a:hover,
-  .navbar-nav>li>a:focus,
-  .navbar-nav>li>a:hover {
+  .navbar-nav > .active > a,
+  .navbar-nav > .active > a:hover,
+  .navbar-nav > .active > a:focus,
+  .navbar-nav > li > a:hover,
+  .navbar-nav > li > a:focus {
     color: $red;
-    border-bottom: 2px solid $red;
     background-color: transparent;
   }
 
-  .navbar-nav>.active>a {
-    background-color: transparent;
+  .navbar-nav > li > a:hover {
+    transition: color 300ms ease-in-out;
+  }
+
+  .navbar-nav > li > a:after {
+    display:block;
+    content: '';
+    padding-bottom: 2px;
+    border-bottom: 2px solid $red;
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
+  }
+
+  .navbar-nav > .active > a:after {
+    border-bottom: 2px solid $red;
+    transform: scaleX(1);
+  }
+
+  .navbar-nav > li > a:hover:after {
+    transform: scaleX(1);
   }
 
 }
